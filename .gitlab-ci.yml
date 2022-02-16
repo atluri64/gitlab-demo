@@ -1,6 +1,4 @@
 image: docker:latest
-services:
-  - name: docker:dind
 
 variables:
   DOCKER_DRIVER: overlay
@@ -24,6 +22,9 @@ build:
   image: gradle:jdk11
   stage: build
   script: gradle --build-cache assemble
+  artifacts:
+    paths:
+      - actions-service/build/libs/*.jar
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
